@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balance de Retorno · ROI de Capacitación</title>
+<style>
+  :root{
+    --ink:#1C2B24;
+    --paper:#F5F1E6;
+    --paper-2:#EAE3CF;
+    --paper-3:#DED4B7;
+    --line:#CFC4A2;
+    --gain:#2F6F4E;
+    --gain-light:#DCEAE0;
+    --loss:#A13E2E;
+    --loss-light:#F3DCD6;
+    --gold:#A9822E;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    padding:32px 18px 80px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;}
+
+  header{
+    border-bottom:2px solid var(--ink);
+    padding-bottom:14px;
+    margin-bottom:6px;
+  }
+  header .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  header h1{
+    font-family:var(--serif);
+    font-size:30px;
+    margin:6px 0 8px;
+  }
+  header p{
+    font-size:14px;
+    color:#4a4738;
+    max-width:640px;
+    margin:0;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:22px;
+    margin-top:30px;
+    align-items:start;
+  }
+  @media (max-width:880px){ .layout{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:18px 18px 20px;
+    margin-bottom:18px;
+  }
+  .card h2{
+    font-family:var(--serif);
+    font-size:16.5px;
+    margin:0 0 4px;
+  }
+  .card .card-note{
+    font-size:12px;
+    color:#6b6754;
+    margin:0 0 14px;
+  }
+
+  .field{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px dotted var(--line);
+  }
+  .field:last-child{border-bottom:none;}
+  .field label{
+    flex:1;
+    font-size:13px;
+    line-height:1.4;
+  }
+  .field .input-box{
+    display:flex;
+    align-items:center;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:4px 8px;
+    min-width:130px;
+  }
+  .field .input-box .prefix{
+    font-family:var(--mono);
+    font-size:12px;
+    color:#8a8570;
+    margin-right:4px;
+  }
+  .field input{
+    border:none;
+    background:transparent;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--ink);
+    width:100%;
+    text-align:right;
+    padding:2px 0;
+  }
+  .field input:focus{outline:none;}
+  .field .suffix{
+    font-family:var(--mono);
+    font-size:12px;
+    color:#8a8570;
+    margin-left:4px;
+  }
+  .input-box:focus-within{border-color:var(--gold);}
+
+  .assump-flag{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    background:var(--gold);
+    color:var(--paper);
+    padding:2px 6px;
+    border-radius:8px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+
+  .btn-row{
+    display:flex;
+    gap:10px;
+    margin:6px 0 4px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:1.1px;
+    font-size:12px;
+    padding:12px 22px;
+    border-radius:2px;
+    cursor:pointer;
+    border:2px solid var(--ink);
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);}
+  .btn-primary:hover{background:#2b3d33;}
+  .btn-secondary{background:transparent;color:var(--ink);}
+  .btn-secondary:hover{background:var(--paper-3);}
+  .btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px;}
+
+  /* Results receipt */
+  .receipt-wrap{position:sticky;top:20px;}
+  .receipt{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-top:4px solid var(--ink);
+    padding:22px 20px 4px;
+  }
+  .receipt .r-title{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.6px;
+    text-align:center;
+    color:#6b6754;
+    margin-bottom:4px;
+  }
+  .receipt .r-sub{
+    font-family:var(--serif);
+    font-size:19px;
+    text-align:center;
+    margin:0 0 16px;
+  }
+
+  .verdict-banner{
+    text-align:center;
+    padding:12px 10px;
+    border-radius:2px;
+    font-family:var(--serif);
+    font-size:17px;
+    margin-bottom:18px;
+  }
+  .verdict-banner.gain{background:var(--gain-light);color:var(--gain);}
+  .verdict-banner.loss{background:var(--loss-light);color:var(--loss);}
+  .verdict-banner .roi-pct{
+    font-family:var(--mono);
+    font-size:30px;
+    display:block;
+    margin-top:2px;
+  }
+
+  .meter{
+    position:relative;
+    height:10px;
+    border-radius:6px;
+    background:linear-gradient(to right, var(--loss) 0%, var(--loss) 33%, var(--gold) 33%, var(--gold) 55%, var(--gain) 55%, var(--gain) 100%);
+    margin:10px 0 4px;
+  }
+  .meter .needle{
+    position:absolute;
+    top:-5px;
+    width:2px;
+    height:20px;
+    background:var(--ink);
+  }
+  .meter .needle::after{
+    content:"";
+    position:absolute;
+    top:-4px;
+    left:-4px;
+    width:10px;
+    height:10px;
+    background:var(--ink);
+    border-radius:50%;
+  }
+  .meter-labels{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:9.5px;
+    color:#8a8570;
+    margin-bottom:20px;
+  }
+
+  .line-item{
+    display:flex;
+    align-items:baseline;
+    margin-bottom:9px;
+  }
+  .line-item .li-label{
+    font-size:13px;
+    white-space:nowrap;
+  }
+  .line-item .li-fill{
+    flex:1;
+    border-bottom:1px dotted var(--line);
+    margin:0 6px;
+    transform:translateY(-4px);
+  }
+  .line-item .li-value{
+    font-family:var(--mono);
+    font-size:13.5px;
+    white-space:nowrap;
+    font-weight:600;
+  }
+  .line-item.total .li-label,
+  .line-item.total .li-value{
+    font-size:15px;
+    font-weight:700;
+  }
+  .line-item.net .li-value.gain{color:var(--gain);}
+  .line-item.net .li-value.loss{color:var(--loss);}
+
+  hr.rule{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:16px 0;
+  }
+
+  .mini-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin:14px 0 6px;
+  }
+  .mini-stat{
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:10px 12px;
+    border-radius:2px;
+  }
+  .mini-stat .ms-label{
+    font-family:var(--mono);
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    color:#8a8570;
+    margin-bottom:4px;
+  }
+  .mini-stat .ms-value{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:600;
+  }
+
+  .receipt-zigzag{
+    height:14px;
+    background:
+      linear-gradient(-45deg, var(--paper) 8px, transparent 0),
+      linear-gradient(45deg, var(--paper) 8px, transparent 0);
+    background-size:16px 16px;
+    background-position:left bottom;
+    background-repeat:repeat-x;
+  }
+
+  footer{
+    text-align:center;
+    margin-top:44px;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:1px;
+    color:#8a8570;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">L&amp;D · Analítica Financiera</div>
+    <h1>Balance de Retorno de Capacitación</h1>
+    <p>Ingresa los costos, participantes y beneficios esperados. Los supuestos marcados <span class="assump-flag">supuesto</span> son editables y quedan siempre visibles — modifícalos cuantas veces necesites, sin límite.</p>
+  </header>
+
+  <div class="layout">
+    <div class="inputs-col">
+
+      <div class="card">
+        <h2>1. Costos generales de la capacitación</h2>
+        <p class="card-note">Costos totales del programa, no por persona.</p>
+
+        <div class="field">
+          <label for="c_diseno">Diseño y desarrollo de contenido</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="c_diseno" value="3.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="c_facilitador">Honorarios del facilitador / instructor</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="c_facilitador" value="5.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="c_materiales">Materiales, licencias y certificaciones</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="c_materiales" value="1.500.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="c_logistica">Logística y venue (espacio, catering, equipos)</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="c_logistica" value="2.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="c_tecnologia">Tecnología (LMS, plataformas digitales)</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="c_tecnologia" value="1.000.000"><span class="suffix">COP</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Costos por participante</h2>
+        <p class="card-note">Se multiplican por el número de participantes.</p>
+
+        <div class="field">
+          <label for="num_participantes">Número de participantes</label>
+          <div class="input-box"><input type="number" id="num_participantes" value="20"><span class="suffix">personas</span></div>
+        </div>
+        <div class="field">
+          <label for="duracion_horas">Duración de la capacitación</label>
+          <div class="input-box"><input type="number" id="duracion_horas" value="16"><span class="suffix">horas</span></div>
+        </div>
+        <div class="field">
+          <label for="costo_hora">Costo hora salario promedio del participante <span class="assump-flag">supuesto</span></label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="costo_hora" value="25.000"><span class="suffix">COP/h</span></div>
+        </div>
+        <div class="field">
+          <label for="transporte">Transporte y viáticos por participante</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="transporte" value="50.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="material_ind">Material individual por participante</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="material_ind" value="30.000"><span class="suffix">COP</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Beneficios esperados y supuestos</h2>
+        <p class="card-note">Ajusta estos valores según el tipo de capacitación (técnica, comercial, liderazgo, cumplimiento, etc.).</p>
+
+        <div class="field">
+          <label for="valor_mensual">Valor mensual generado por participante <span class="assump-flag">supuesto</span></label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="valor_mensual" value="3.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="mejora_productividad">Mejora en productividad estimada <span class="assump-flag">supuesto</span></label>
+          <div class="input-box"><input type="number" id="mejora_productividad" value="8"><span class="suffix">%</span></div>
+        </div>
+        <div class="field">
+          <label for="reduccion_errores">Ahorro por reducción de errores / reprocesos</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="reduccion_errores" value="4.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="impacto_ventas">Impacto estimado en ventas / ingresos</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="impacto_ventas" value="0"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="ahorro_rotacion">Ahorro por reducción de rotación de personal</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="ahorro_rotacion" value="3.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="tiempo_ahorrado">Valor del tiempo ahorrado por eficiencia</label>
+          <div class="input-box"><span class="prefix">$</span><input type="text" inputmode="numeric" class="money-input" id="tiempo_ahorrado" value="2.000.000"><span class="suffix">COP</span></div>
+        </div>
+        <div class="field">
+          <label for="factor_aislamiento">Factor de aislamiento (% atribuible a la capacitación) <span class="assump-flag">supuesto</span></label>
+          <div class="input-box"><input type="number" id="factor_aislamiento" value="70"><span class="suffix">%</span></div>
+        </div>
+        <div class="field">
+          <label for="horizonte_meses">Horizonte de medición del beneficio <span class="assump-flag">supuesto</span></label>
+          <div class="input-box"><input type="number" id="horizonte_meses" value="6"><span class="suffix">meses</span></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="calcularROI()">Calcular ROI</button>
+        <button class="btn btn-secondary" onclick="restablecerValores()">Restablecer valores por defecto</button>
+      </div>
+    </div>
+
+    <div class="receipt-wrap">
+      <div class="receipt">
+        <div class="r-title">Resultado ejecutivo</div>
+        <div class="r-sub">ROI de la Capacitación</div>
+
+        <div class="verdict-banner" id="verdictBanner">
+          <span id="verdictText">—</span>
+          <span class="roi-pct" id="roiPct">0%</span>
+        </div>
+
+        <div class="meter">
+          <div class="needle" id="needle" style="left:50%;"></div>
+        </div>
+        <div class="meter-labels">
+          <span>-100%</span><span>0%</span><span>+100%</span><span>+200%+</span>
+        </div>
+
+        <div class="line-item">
+          <span class="li-label">Inversión total</span>
+          <span class="li-fill"></span>
+          <span class="li-value" id="out_inversion">$0</span>
+        </div>
+        <div class="line-item">
+          <span class="li-label">Beneficio total ajustado</span>
+          <span class="li-fill"></span>
+          <span class="li-value" id="out_beneficio">$0</span>
+        </div>
+        <div class="line-item total net">
+          <span class="li-label">Beneficio neto</span>
+          <span class="li-fill"></span>
+          <span class="li-value" id="out_neto">$0</span>
+        </div>
+
+        <hr class="rule">
+
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <div class="ms-label">Costo por participante</div>
+            <div class="ms-value" id="out_costo_pp">$0</div>
+          </div>
+          <div class="mini-stat">
+            <div class="ms-label">Beneficio por participante</div>
+            <div class="ms-value" id="out_beneficio_pp">$0</div>
+          </div>
+          <div class="mini-stat">
+            <div class="ms-label">Payback (recuperación)</div>
+            <div class="ms-value" id="out_payback">— meses</div>
+          </div>
+          <div class="mini-stat">
+            <div class="ms-label">Beneficio bruto (sin ajustar)</div>
+            <div class="ms-value" id="out_bruto">$0</div>
+          </div>
+        </div>
+
+        <div class="receipt-zigzag"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Calculador de ROI de Capacitación — cifras en COP · resultados ilimitados y editables</footer>
+</div>
+
+<script>
+const defaults = {
+  c_diseno:3000000, c_facilitador:5000000, c_materiales:1500000, c_logistica:2000000, c_tecnologia:1000000,
+  num_participantes:20, duracion_horas:16, costo_hora:25000, transporte:50000, material_ind:30000,
+  valor_mensual:3000000, mejora_productividad:8, reduccion_errores:4000000, impacto_ventas:0,
+  ahorro_rotacion:3000000, tiempo_ahorrado:2000000, factor_aislamiento:70, horizonte_meses:6
+};
+
+const moneyIds = ['c_diseno','c_facilitador','c_materiales','c_logistica','c_tecnologia',
+  'costo_hora','transporte','material_ind','valor_mensual','reduccion_errores',
+  'impacto_ventas','ahorro_rotacion','tiempo_ahorrado'];
+
+function num(id){
+  const raw = document.getElementById(id).value;
+  const clean = raw.replace(/\./g, '').replace(/[^\d.-]/g, '');
+  const v = parseFloat(clean);
+  return isNaN(v) ? 0 : v;
+}
+
+function formatMoneyInput(input){
+  const digits = input.value.replace(/\D/g, '');
+  if(digits === ''){ input.value = ''; return; }
+  input.value = parseInt(digits, 10).toLocaleString('es-CO');
+}
+
+function formatCOP(value){
+  const rounded = Math.round(value);
+  return '$' + rounded.toLocaleString('es-CO', { maximumFractionDigits: 0 });
+}
+
+function formatNum(value){
+  return Math.round(value).toLocaleString('es-CO', { maximumFractionDigits: 0 });
+}
+
+function calcularROI(){
+  const c_diseno = num('c_diseno');
+  const c_facilitador = num('c_facilitador');
+  const c_materiales = num('c_materiales');
+  const c_logistica = num('c_logistica');
+  const c_tecnologia = num('c_tecnologia');
+  const costosGenerales = c_diseno + c_facilitador + c_materiales + c_logistica + c_tecnologia;
+
+  const numParticipantes = Math.max(num('num_participantes'), 0);
+  const duracionHoras = num('duracion_horas');
+  const costoHora = num('costo_hora');
+  const transporte = num('transporte');
+  const materialInd = num('material_ind');
+
+  const costoOportunidadPP = duracionHoras * costoHora;
+  const costoPorParticipante = costoOportunidadPP + transporte + materialInd;
+  const costosParticipantesTotal = costoPorParticipante * numParticipantes;
+
+  const inversionTotal = costosGenerales + costosParticipantesTotal;
+
+  const valorMensual = num('valor_mensual');
+  const mejoraProductividad = num('mejora_productividad') / 100;
+  const reduccionErrores = num('reduccion_errores');
+  const impactoVentas = num('impacto_ventas');
+  const ahorroRotacion = num('ahorro_rotacion');
+  const tiempoAhorrado = num('tiempo_ahorrado');
+  const factorAislamiento = num('factor_aislamiento') / 100;
+  const horizonteMeses = Math.max(num('horizonte_meses'), 0.01);
+
+  const productividadValorizada = valorMensual * mejoraProductividad * numParticipantes * horizonteMeses;
+  const beneficioBruto = productividadValorizada + reduccionErrores + impactoVentas + ahorroRotacion + tiempoAhorrado;
+
+  const beneficioAjustado = beneficioBruto * factorAislamiento;
+  const beneficioNeto = beneficioAjustado - inversionTotal;
+  const roi = inversionTotal > 0 ? (beneficioNeto / inversionTotal) * 100 : 0;
+
+  const beneficioMensual = beneficioAjustado / horizonteMeses;
+  const payback = beneficioMensual > 0 ? inversionTotal / beneficioMensual : null;
+
+  const costoPP = numParticipantes > 0 ? inversionTotal / numParticipantes : 0;
+  const beneficioPP = numParticipantes > 0 ? beneficioAjustado / numParticipantes : 0;
+
+  document.getElementById('out_inversion').textContent = formatCOP(inversionTotal);
+  document.getElementById('out_beneficio').textContent = formatCOP(beneficioAjustado);
+  document.getElementById('out_bruto').textContent = formatCOP(beneficioBruto);
+  document.getElementById('out_costo_pp').textContent = formatCOP(costoPP);
+  document.getElementById('out_beneficio_pp').textContent = formatCOP(beneficioPP);
+  document.getElementById('out_payback').textContent = payback === null ? 'No recupera' : (formatNum(payback) + ' meses');
+
+  const netoEl = document.getElementById('out_neto');
+  netoEl.textContent = formatCOP(beneficioNeto);
+  netoEl.className = 'li-value ' + (beneficioNeto >= 0 ? 'gain' : 'loss');
+
+  const roiPctEl = document.getElementById('roiPct');
+  roiPctEl.textContent = (roi >= 0 ? '+' : '') + formatNum(roi) + '%';
+
+  const banner = document.getElementById('verdictBanner');
+  const verdictText = document.getElementById('verdictText');
+  let verdict = '';
+  if(roi >= 100){
+    verdict = 'Inversión altamente rentable';
+    banner.className = 'verdict-banner gain';
+  } else if(roi >= 30){
+    verdict = 'Inversión rentable';
+    banner.className = 'verdict-banner gain';
+  } else if(roi >= 0){
+    verdict = 'Retorno positivo, pero moderado';
+    banner.className = 'verdict-banner gain';
+  } else {
+    verdict = 'No recupera la inversión en el horizonte definido';
+    banner.className = 'verdict-banner loss';
+  }
+  verdictText.textContent = verdict;
+
+  const clamped = Math.max(-100, Math.min(200, roi));
+  const pct = ((clamped + 100) / 300) * 100;
+  document.getElementById('needle').style.left = pct + '%';
+}
+
+function restablecerValores(){
+  Object.keys(defaults).forEach(id => {
+    const el = document.getElementById(id);
+    el.value = defaults[id];
+    if(moneyIds.includes(id)){
+      formatMoneyInput(el);
+    }
+  });
+  calcularROI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('input[type="number"]').forEach(input => {
+  input.addEventListener('input', calcularROI);
+});
+
+document.querySelectorAll('.money-input').forEach(input => {
+  input.addEventListener('input', () => {
+    formatMoneyInput(input);
+    calcularROI();
+  });
+});
+
+restablecerValores();
+</script>
+</body>
+</html>
