@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expediente de Compatibilidad · Perfil vs Vacante</title>
+
 <style>
   :root{
     --ink:#20241F;
@@ -16,11 +17,13 @@
     --gap:#9C4A34;
     --gap-light:#F2DCD3;
     --line:#D9CFB4;
-    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;
   }
+
   *{box-sizing:border-box;}
+
   body{
     margin:0;
     background:var(--paper);
@@ -28,9 +31,12 @@
     font-family:var(--sans);
     padding:32px 20px 80px;
   }
-  .wrap{max-width:980px;margin:0 auto;}
 
-  /* Header */
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+  }
+
   header{
     display:flex;
     align-items:baseline;
@@ -41,12 +47,18 @@
     flex-wrap:wrap;
     gap:8px;
   }
+
   header .brand{
     font-family:var(--serif);
     font-size:28px;
-    letter-spacing:0.2px;
+    letter-spacing:.2px;
   }
-  header .brand em{font-style:italic;color:var(--tan-dark);}
+
+  header .brand em{
+    font-style:italic;
+    color:var(--tan-dark);
+  }
+
   header .tag{
     font-family:var(--mono);
     font-size:11px;
@@ -54,6 +66,7 @@
     text-transform:uppercase;
     color:#6b6656;
   }
+
   .subhead{
     font-size:14px;
     color:#5b5646;
@@ -61,13 +74,17 @@
     max-width:640px;
   }
 
-  /* Input folder tabs */
   .folder{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:18px;
   }
-  @media (max-width:720px){ .folder{grid-template-columns:1fr;} }
+
+  @media(max-width:720px){
+    .folder{
+      grid-template-columns:1fr;
+    }
+  }
 
   .tab-card{
     background:var(--paper-2);
@@ -76,6 +93,7 @@
     position:relative;
     padding:20px 18px 18px;
   }
+
   .tab-label{
     position:absolute;
     top:-13px;
@@ -89,11 +107,13 @@
     padding:5px 10px;
     border-radius:1px;
   }
+
   .tab-card h3{
     font-family:var(--serif);
     font-size:17px;
     margin:8px 0 10px;
   }
+
   textarea{
     width:100%;
     min-height:190px;
@@ -107,8 +127,15 @@
     line-height:1.5;
     color:var(--ink);
   }
-  textarea:focus{outline:2px solid var(--tan-dark);outline-offset:1px;}
-  textarea::placeholder{color:#9a927a;}
+
+  textarea:focus{
+    outline:2px solid var(--tan-dark);
+    outline-offset:1px;
+  }
+
+  textarea::placeholder{
+    color:#9a927a;
+  }
 
   .file-row{
     display:flex;
@@ -117,10 +144,11 @@
     gap:8px;
     margin-top:10px;
   }
+
   .file-btn{
     font-family:var(--mono);
     font-size:11px;
-    letter-spacing:0.6px;
+    letter-spacing:.6px;
     text-transform:uppercase;
     background:transparent;
     border:1px solid var(--tan-dark);
@@ -131,13 +159,18 @@
     display:inline-flex;
     align-items:center;
     gap:6px;
-    transition:background .12s ease, color .12s ease;
   }
-  .file-btn:hover{background:var(--tan-dark);color:var(--paper);}
+
+  .file-btn:hover{
+    background:var(--tan-dark);
+    color:var(--paper);
+  }
+
   .file-hint{
     font-size:11px;
     color:#8a8570;
   }
+
   .file-chip{
     display:none;
     align-items:center;
@@ -149,72 +182,27 @@
     border-radius:14px;
     max-width:100%;
   }
+
   .file-chip span{
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
     max-width:200px;
   }
+
   .file-chip button{
     border:none;
     background:none;
     color:var(--gap);
     font-size:15px;
-    line-height:1;
     cursor:pointer;
-    padding:0 2px;
   }
-  .file-chip button:focus-visible{outline:2px solid var(--gap);}
 
   .actions{
     display:flex;
     justify-content:center;
     margin:26px 0 8px;
   }
-  .api-key-panel{
-    background:var(--paper-2);
-    border:1px solid var(--line);
-    border-left:4px solid var(--tan-dark);
-    padding:14px 16px;
-    margin-bottom:26px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    flex-wrap:wrap;
-  }
-  .api-key-panel .akp-text{flex:1;min-width:220px;}
-  .api-key-panel .akp-title{
-    font-family:var(--mono);
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:1.1px;
-    color:var(--tan-dark);
-    margin-bottom:3px;
-  }
-  .api-key-panel .akp-desc{
-    font-size:12.5px;
-    color:#5b5646;
-    line-height:1.5;
-  }
-  .api-key-panel .akp-desc a{color:var(--tan-dark);}
-  .api-key-panel input{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:2px;
-    padding:9px 10px;
-    font-family:var(--mono);
-    font-size:12.5px;
-    min-width:260px;
-    color:var(--ink);
-  }
-  .api-key-panel input:focus{outline:2px solid var(--tan-dark);outline-offset:1px;}
-  .api-key-panel .akp-status{
-    font-family:var(--mono);
-    font-size:11px;
-    white-space:nowrap;
-  }
-  .api-key-panel .akp-status.ok{color:var(--match);}
-  .api-key-panel .akp-status.missing{color:var(--gap);}
 
   .stamp-btn{
     font-family:var(--mono);
@@ -227,12 +215,16 @@
     padding:13px 34px;
     border-radius:2px;
     cursor:pointer;
-    transition:transform .12s ease, background .12s ease;
   }
-  .stamp-btn:hover{background:#3a4034;}
-  .stamp-btn:active{transform:scale(0.97);}
-  .stamp-btn:disabled{opacity:0.5;cursor:progress;}
-  .stamp-btn:focus-visible{outline:3px solid var(--tan-dark);outline-offset:2px;}
+
+  .stamp-btn:hover{
+    background:#3a4034;
+  }
+
+  .stamp-btn:disabled{
+    opacity:.5;
+    cursor:progress;
+  }
 
   .error-box{
     display:none;
@@ -243,11 +235,13 @@
     color:var(--gap);
     padding:12px 14px;
     font-size:13px;
-    border-radius:2px;
   }
 
-  /* Results dossier */
-  #results{display:none;margin-top:44px;}
+  #results{
+    display:none;
+    margin-top:44px;
+  }
+
   .dossier-head{
     display:flex;
     align-items:center;
@@ -259,12 +253,14 @@
     color:#6b6656;
     margin-bottom:18px;
   }
+
   .dossier-head::after{
     content:"";
     flex:1;
     height:1px;
     background:var(--line);
   }
+
   .reset-btn{
     font-family:var(--mono);
     font-size:10.5px;
@@ -276,10 +272,7 @@
     padding:5px 10px;
     border-radius:12px;
     cursor:pointer;
-    white-space:nowrap;
   }
-  .reset-btn:hover{background:var(--tan-dark);color:var(--paper);}
-  .reset-btn:focus-visible{outline:2px solid var(--tan-dark);outline-offset:2px;}
 
   .score-row{
     display:grid;
@@ -288,47 +281,67 @@
     align-items:center;
     margin-bottom:32px;
   }
-  @media (max-width:640px){ .score-row{grid-template-columns:1fr;justify-items:center;text-align:center;} }
+
+  @media(max-width:640px){
+    .score-row{
+      grid-template-columns:1fr;
+      justify-items:center;
+      text-align:center;
+    }
+  }
 
   .dial{
-    width:170px;height:170px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     position:relative;
   }
+
   .dial .ring{
-    position:absolute;inset:0;border-radius:50%;
+    position:absolute;
+    inset:0;
+    border-radius:50%;
   }
+
   .dial .hole{
-    position:absolute;inset:14px;
+    position:absolute;
+    inset:14px;
     background:var(--paper);
     border-radius:50%;
-    display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
     border:1px solid var(--line);
   }
+
   .dial .pct{
     font-family:var(--mono);
     font-size:34px;
     font-weight:600;
   }
+
   .dial .pct-label{
     font-family:var(--mono);
     font-size:9.5px;
     letter-spacing:1px;
     text-transform:uppercase;
     color:#6b6656;
-    margin-top:2px;
   }
+
   .verdict h2{
     font-family:var(--serif);
     font-size:22px;
     margin:0 0 8px;
   }
+
   .verdict p{
     font-size:14px;
     line-height:1.6;
     color:#3d3a2f;
-    margin:0;
   }
 
   .sections{
@@ -336,14 +349,19 @@
     grid-template-columns:1fr 1fr;
     gap:18px;
   }
-  @media (max-width:720px){ .sections{grid-template-columns:1fr;} }
+
+  @media(max-width:720px){
+    .sections{
+      grid-template-columns:1fr;
+    }
+  }
 
   .section-card{
     background:var(--paper-2);
     border:1px solid var(--line);
-    padding:18px 18px 20px;
-    border-radius:2px;
+    padding:18px;
   }
+
   .section-card h4{
     font-family:var(--mono);
     font-size:11px;
@@ -354,32 +372,53 @@
     align-items:center;
     gap:8px;
   }
-  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+  .dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+  }
+
   .dot.match{background:var(--match);}
   .dot.gap{background:var(--gap);}
   .dot.strength{background:var(--tan-dark);}
   .dot.rec{background:#5b5646;}
 
-  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+  }
+
   .chip{
     font-size:12.5px;
     padding:5px 10px;
     border-radius:12px;
-    line-height:1.3;
   }
-  .chip.match{background:var(--match-light);color:var(--match);border:1px solid var(--match);}
-  .chip.gap{background:var(--gap-light);color:var(--gap);border:1px solid var(--gap);}
 
-  ul.plain{margin:0;padding-left:18px;}
+  .chip.match{
+    background:var(--match-light);
+    color:var(--match);
+    border:1px solid var(--match);
+  }
+
+  .chip.gap{
+    background:var(--gap-light);
+    color:var(--gap);
+    border:1px solid var(--gap);
+  }
+
+  ul.plain{
+    margin:0;
+    padding-left:18px;
+  }
+
   ul.plain li{
     font-size:13.5px;
     line-height:1.55;
     margin-bottom:8px;
     color:#3d3a2f;
   }
-  ul.plain li::marker{color:var(--tan-dark);}
-
-  .full-width{grid-column:1/-1;}
 
   footer{
     text-align:center;
@@ -395,351 +434,1193 @@
     font-family:var(--mono);
     font-size:12px;
     color:#6b6656;
-    letter-spacing:0.5px;
     margin-top:18px;
     display:none;
   }
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
 
   <header>
-    <div class="brand">Expediente <em>de Compatibilidad</em></div>
-    <div class="tag">Analizador Perfil × Vacante</div>
-  </header>
-  <p class="subhead">Pega el texto o adjunta un PDF/imagen del perfil de LinkedIn y de la vacante. El análisis evalúa coincidencias reales, brechas y da recomendaciones concretas para mejorar el ajuste — con criterio de reclutador experimentado.</p>
-
-  <div class="api-key-panel" id="apiKeyPanel">
-    <div class="akp-text">
-      <div class="akp-title">Clave de API requerida (solo fuera de Claude.ai)</div>
-      <div class="akp-desc">Este archivo, al abrirse fuera de Claude.ai, necesita tu propia clave de la API de Anthropic para funcionar. Se usa solo en tu navegador, no se guarda ni se comparte. Consíguela en <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>.</div>
+    <div class="brand">
+      Expediente <em>de Compatibilidad</em>
     </div>
-    <input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off">
-    <span class="akp-status missing" id="apiKeyStatus">Sin configurar</span>
-  </div>
+
+    <div class="tag">
+      Analizador Perfil × Vacante
+    </div>
+  </header>
+
+  <p class="subhead">
+    Pega el texto o adjunta un PDF/imagen del perfil de LinkedIn y de la vacante.
+    El análisis evalúa coincidencias reales, brechas y da recomendaciones concretas
+    para mejorar el ajuste — con criterio de reclutador experimentado.
+  </p>
 
   <div class="folder">
+
     <div class="tab-card">
       <span class="tab-label">Candidato</span>
+
       <h3>Perfil de LinkedIn</h3>
-      <textarea id="profileInput" placeholder="Pega aquí el contenido del perfil: resumen (about), experiencia, educación, habilidades, certificaciones..."></textarea>
+
+      <textarea
+        id="profileInput"
+        placeholder="Pega aquí el contenido del perfil: resumen (about), experiencia, educación, habilidades, certificaciones..."
+      ></textarea>
+
       <div class="file-row">
-        <label class="file-btn" for="profileFile">📎 Adjuntar PDF o imagen</label>
-        <input type="file" id="profileFile" accept="application/pdf,image/jpeg,image/png,image/jpg" style="display:none" onchange="handleFile(event,'profile')">
-        <span class="file-hint">Ej: PDF exportado de LinkedIn o captura de pantalla</span>
-        <div class="file-chip" id="profileFileChip"></div>
+
+        <label class="file-btn" for="profileFile">
+          📎 Adjuntar PDF o imagen
+        </label>
+
+        <input
+          type="file"
+          id="profileFile"
+          accept="application/pdf,image/jpeg,image/png,image/jpg"
+          style="display:none"
+          onchange="handleFile(event,'profile')"
+        >
+
+        <span class="file-hint">
+          Ej: PDF exportado de LinkedIn o captura de pantalla
+        </span>
+
+        <div
+          class="file-chip"
+          id="profileFileChip"
+        ></div>
+
       </div>
     </div>
+
     <div class="tab-card">
       <span class="tab-label">Vacante</span>
+
       <h3>Descripción del puesto</h3>
-      <textarea id="jobInput" placeholder="Pega aquí la descripción completa de la vacante: requisitos, responsabilidades, habilidades deseadas, experiencia mínima..."></textarea>
+
+      <textarea
+        id="jobInput"
+        placeholder="Pega aquí la descripción completa de la vacante: requisitos, responsabilidades, habilidades deseadas, experiencia mínima..."
+      ></textarea>
+
       <div class="file-row">
-        <label class="file-btn" for="jobFile">📎 Adjuntar PDF o imagen</label>
-        <input type="file" id="jobFile" accept="application/pdf,image/jpeg,image/png,image/jpg" style="display:none" onchange="handleFile(event,'job')">
-        <span class="file-hint">Ej: PDF de la vacante o captura de pantalla</span>
-        <div class="file-chip" id="jobFileChip"></div>
+
+        <label class="file-btn" for="jobFile">
+          📎 Adjuntar PDF o imagen
+        </label>
+
+        <input
+          type="file"
+          id="jobFile"
+          accept="application/pdf,image/jpeg,image/png,image/jpg"
+          style="display:none"
+          onchange="handleFile(event,'job')"
+        >
+
+        <span class="file-hint">
+          Ej: PDF de la vacante o captura de pantalla
+        </span>
+
+        <div
+          class="file-chip"
+          id="jobFileChip"
+        ></div>
+
       </div>
     </div>
+
   </div>
 
   <div class="actions">
-    <button class="stamp-btn" id="analyzeBtn" onclick="runAnalysis()">Analizar compatibilidad</button>
+    <button
+      class="stamp-btn"
+      id="analyzeBtn"
+      onclick="runAnalysis()"
+    >
+      Analizar compatibilidad
+    </button>
   </div>
-  <div class="loading-line" id="loadingLine">Comparando perfil contra la vacante…</div>
-  <div class="error-box" id="errorBox"></div>
+
+  <div
+    class="loading-line"
+    id="loadingLine"
+  >
+    Comparando perfil contra la vacante…
+  </div>
+
+  <div
+    class="error-box"
+    id="errorBox"
+  ></div>
 
   <div id="results">
-    <div class="dossier-head">Resultado del análisis
-      <button class="reset-btn" onclick="resetAll()">↻ Nuevo análisis</button>
+
+    <div class="dossier-head">
+      Resultado del análisis
+
+      <button
+        class="reset-btn"
+        onclick="resetAll()"
+      >
+        ↻ Nuevo análisis
+      </button>
     </div>
 
     <div class="score-row">
-      <div class="dial" id="dial">
-        <div class="ring" id="ring"></div>
+
+      <div
+        class="dial"
+        id="dial"
+      >
+
+        <div
+          class="ring"
+          id="ring"
+        ></div>
+
         <div class="hole">
-          <div class="pct" id="pctText">0%</div>
-          <div class="pct-label">Match</div>
+
+          <div
+            class="pct"
+            id="pctText"
+          >
+            0%
+          </div>
+
+          <div class="pct-label">
+            Match
+          </div>
+
         </div>
       </div>
+
       <div class="verdict">
-        <h2 id="verdictTitle">Nivel de ajuste</h2>
+
+        <h2 id="verdictTitle">
+          Nivel de ajuste
+        </h2>
+
         <p id="verdictText"></p>
+
       </div>
+
     </div>
 
     <div class="sections">
+
       <div class="section-card">
-        <h4><span class="dot match"></span>Coincidencias clave</h4>
-        <div class="chips" id="matchChips"></div>
+
+        <h4>
+          <span class="dot match"></span>
+          Coincidencias clave
+        </h4>
+
+        <div
+          class="chips"
+          id="matchChips"
+        ></div>
+
       </div>
+
       <div class="section-card">
-        <h4><span class="dot gap"></span>Brechas detectadas</h4>
-        <div class="chips" id="gapChips"></div>
+
+        <h4>
+          <span class="dot gap"></span>
+          Brechas detectadas
+        </h4>
+
+        <div
+          class="chips"
+          id="gapChips"
+        ></div>
+
       </div>
+
       <div class="section-card">
-        <h4><span class="dot strength"></span>Fortalezas del candidato</h4>
-        <ul class="plain" id="strengthsList"></ul>
+
+        <h4>
+          <span class="dot strength"></span>
+          Fortalezas del candidato
+        </h4>
+
+        <ul
+          class="plain"
+          id="strengthsList"
+        ></ul>
+
       </div>
+
       <div class="section-card">
-        <h4><span class="dot rec"></span>Recomendaciones para mejorar el perfil</h4>
-        <ul class="plain" id="recsList"></ul>
+
+        <h4>
+          <span class="dot rec"></span>
+          Recomendaciones para mejorar el perfil
+        </h4>
+
+        <ul
+          class="plain"
+          id="recsList"
+        ></ul>
+
       </div>
+
     </div>
   </div>
 
-  <footer>Analizador de Perfil × Vacante — herramienta de apoyo, no reemplaza el criterio del reclutador</footer>
+  <footer>
+    Analizador de Perfil × Vacante — herramienta de apoyo,
+    no reemplaza el criterio del reclutador
+  </footer>
+
 </div>
 
 <script>
-let userApiKey = '';
 
-const apiKeyInput = document.getElementById('apiKeyInput');
-const apiKeyStatus = document.getElementById('apiKeyStatus');
-apiKeyInput.addEventListener('input', () => {
-  userApiKey = apiKeyInput.value.trim();
-  if(userApiKey){
-    apiKeyStatus.textContent = 'Lista para usar';
-    apiKeyStatus.className = 'akp-status ok';
-  } else {
-    apiKeyStatus.textContent = 'Sin configurar';
-    apiKeyStatus.className = 'akp-status missing';
-  }
-});
+const attachments = {
+  profile:null,
+  job:null
+};
 
-const attachments = { profile: null, job: null };
-const MAX_FILE_MB = 15;
+const MAX_FILE_MB = 3;
+const MAX_TOTAL_FILE_MB = 3;
+
 
 function handleFile(event, side){
-  const file = event.target.files[0];
-  if(!file) return;
 
-  const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
-  const isImage = file.type.startsWith('image/') || /\.(jpe?g|png)$/i.test(file.name);
+  const file = event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  const isPdf =
+    file.type === "application/pdf" ||
+    /\.pdf$/i.test(file.name);
+
+  const isImage =
+    file.type.startsWith("image/") ||
+    /\.(jpe?g|png)$/i.test(file.name);
+
 
   if(!isPdf && !isImage){
-    alert('Formato no soportado. Adjunta un PDF, JPG o PNG.');
-    event.target.value = '';
-    return;
-  }
-  if(file.size > MAX_FILE_MB * 1024 * 1024){
-    alert(`El archivo supera ${MAX_FILE_MB} MB. Prueba con uno más liviano.`);
-    event.target.value = '';
+
+    alert(
+      "Formato no soportado. Adjunta un PDF, JPG o PNG."
+    );
+
+    event.target.value = "";
+
     return;
   }
 
-  const reader = new FileReader();
+
+  if(
+    file.size >
+    MAX_FILE_MB * 1024 * 1024
+  ){
+
+    alert(
+      `El archivo supera ${MAX_FILE_MB} MB. Prueba con uno más liviano.`
+    );
+
+    event.target.value = "";
+
+    return;
+  }
+
+
+  const otherSide =
+    side === "profile"
+      ? "job"
+      : "profile";
+
+
+  const otherSize =
+    attachments[otherSide]
+      ? attachments[otherSide].size
+      : 0;
+
+
+  const totalSize =
+    file.size +
+    otherSize;
+
+
+  if(
+    totalSize >
+    MAX_TOTAL_FILE_MB * 1024 * 1024
+  ){
+
+    alert(
+      `Los archivos adjuntos juntos superan ${MAX_TOTAL_FILE_MB} MB. Reduce el tamaño de uno de ellos o pega parte del contenido como texto.`
+    );
+
+    event.target.value = "";
+
+    return;
+  }
+
+
+  const reader =
+    new FileReader();
+
+
   reader.onload = () => {
-    const base64 = reader.result.split(',')[1];
-    const mediaType = isPdf ? 'application/pdf' : (file.type || 'image/jpeg');
-    attachments[side] = { base64, mediaType, isPdf, name: file.name };
-    showFileChip(side, file.name, isPdf);
+
+    const base64 =
+      reader.result
+      .split(",")[1];
+
+
+    const mediaType =
+      isPdf
+        ? "application/pdf"
+        : (
+          file.type ||
+          "image/jpeg"
+        );
+
+
+    attachments[side] = {
+
+      base64:base64,
+
+      mediaType:mediaType,
+
+      isPdf:isPdf,
+
+      name:file.name,
+
+      size:file.size
+    };
+
+
+    showFileChip(
+      side,
+      file.name,
+      isPdf
+    );
+
   };
-  reader.onerror = () => alert('No se pudo leer el archivo. Intenta de nuevo.');
-  reader.readAsDataURL(file);
-  event.target.value = ''; // permite volver a adjuntar el mismo archivo más adelante si se necesita
+
+
+  reader.onerror = () => {
+
+    alert(
+      "No se pudo leer el archivo. Intenta de nuevo."
+    );
+
+  };
+
+
+  reader.readAsDataURL(
+    file
+  );
+
+
+  event.target.value = "";
 }
 
-function showFileChip(side, name, isPdf){
-  const chip = document.getElementById(side + 'FileChip');
-  chip.style.display = 'inline-flex';
-  chip.innerHTML = '';
-  const icon = document.createElement('span');
-  icon.textContent = (isPdf ? '📄 ' : '🖼️ ') + name;
-  const removeBtn = document.createElement('button');
-  removeBtn.type = 'button';
-  removeBtn.textContent = '×';
-  removeBtn.setAttribute('aria-label', 'Quitar archivo adjunto');
-  removeBtn.onclick = () => removeFile(side);
+
+
+function showFileChip(
+  side,
+  name,
+  isPdf
+){
+
+  const chip =
+    document.getElementById(
+      side + "FileChip"
+    );
+
+
+  chip.style.display =
+    "inline-flex";
+
+
+  chip.innerHTML =
+    "";
+
+
+  const icon =
+    document.createElement(
+      "span"
+    );
+
+
+  icon.textContent =
+    (
+      isPdf
+        ? "📄 "
+        : "🖼️ "
+    ) +
+    name;
+
+
+  const removeBtn =
+    document.createElement(
+      "button"
+    );
+
+
+  removeBtn.type =
+    "button";
+
+
+  removeBtn.textContent =
+    "×";
+
+
+  removeBtn.setAttribute(
+    "aria-label",
+    "Quitar archivo adjunto"
+  );
+
+
+  removeBtn.onclick =
+    () => removeFile(side);
+
+
   chip.appendChild(icon);
-  chip.appendChild(removeBtn);
+
+  chip.appendChild(
+    removeBtn
+  );
+
 }
+
+
 
 function removeFile(side){
-  attachments[side] = null;
-  const chip = document.getElementById(side + 'FileChip');
-  chip.style.display = 'none';
-  chip.innerHTML = '';
-  document.getElementById(side + 'File').value = '';
+
+  attachments[side] =
+    null;
+
+
+  const chip =
+    document.getElementById(
+      side + "FileChip"
+    );
+
+
+  chip.style.display =
+    "none";
+
+
+  chip.innerHTML =
+    "";
+
+
+  document.getElementById(
+    side + "File"
+  ).value = "";
+
 }
 
-function buildSideContent(label, textVal, attachment){
-  const parts = [{ type: 'text', text: label }];
-  if(attachment){
-    if(attachment.isPdf){
-      parts.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: attachment.base64 } });
-    } else {
-      parts.push({ type: 'image', source: { type: 'base64', media_type: attachment.mediaType, data: attachment.base64 } });
+
+
+function buildSideContent(
+  label,
+  textVal,
+  attachment
+){
+
+  const parts = [
+
+    {
+      type:"text",
+      text:label
     }
+
+  ];
+
+
+  if(attachment){
+
+    if(
+      attachment.isPdf
+    ){
+
+      parts.push({
+
+        type:"document",
+
+        source:{
+
+          type:"base64",
+
+          media_type:
+            "application/pdf",
+
+          data:
+            attachment.base64
+
+        }
+
+      });
+
+    }else{
+
+      parts.push({
+
+        type:"image",
+
+        source:{
+
+          type:"base64",
+
+          media_type:
+            attachment.mediaType,
+
+          data:
+            attachment.base64
+
+        }
+
+      });
+
+    }
+
   }
+
+
   if(textVal){
-    parts.push({ type: 'text', text: textVal });
+
+    parts.push({
+
+      type:"text",
+
+      text:textVal
+
+    });
+
   }
+
+
   return parts;
+
 }
+
+
 
 function resetAll(){
-  document.getElementById('profileInput').value = '';
-  document.getElementById('jobInput').value = '';
-  removeFile('profile');
-  removeFile('job');
-  document.getElementById('results').style.display = 'none';
-  document.getElementById('errorBox').style.display = 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  document.getElementById(
+    "profileInput"
+  ).value = "";
+
+
+  document.getElementById(
+    "jobInput"
+  ).value = "";
+
+
+  removeFile(
+    "profile"
+  );
+
+
+  removeFile(
+    "job"
+  );
+
+
+  document.getElementById(
+    "results"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "errorBox"
+  ).style.display =
+    "none";
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
 }
+
+
 
 function colorForScore(score){
-  if(score >= 75) return {c1:'#3F6B58', c2:'#5C8A72', label:'Alto ajuste'};
-  if(score >= 50) return {c1:'#9C7F49', c2:'#C7A96F', label:'Ajuste moderado'};
-  return {c1:'#9C4A34', c2:'#BC6A50', label:'Ajuste bajo'};
+
+  if(
+    score >= 75
+  ){
+
+    return {
+
+      c1:"#3F6B58",
+
+      c2:"#5C8A72",
+
+      label:"Alto ajuste"
+
+    };
+
+  }
+
+
+  if(
+    score >= 50
+  ){
+
+    return {
+
+      c1:"#9C7F49",
+
+      c2:"#C7A96F",
+
+      label:"Ajuste moderado"
+
+    };
+
+  }
+
+
+  return {
+
+    c1:"#9C4A34",
+
+    c2:"#BC6A50",
+
+    label:"Ajuste bajo"
+
+  };
+
 }
+
+
 
 function renderDial(score){
-  const deg = Math.round(score * 3.6);
-  const {c1, c2} = colorForScore(score);
-  const ring = document.getElementById('ring');
-  ring.style.background = `conic-gradient(${c1} 0deg, ${c2} ${deg}deg, #E4DCC5 ${deg}deg 360deg)`;
-  document.getElementById('pctText').textContent = score + '%';
-  document.getElementById('pctText').style.color = c1;
+
+  const deg =
+    Math.round(
+      score * 3.6
+    );
+
+
+  const {
+    c1,
+    c2
+  } =
+    colorForScore(
+      score
+    );
+
+
+  const ring =
+    document.getElementById(
+      "ring"
+    );
+
+
+  ring.style.background =
+    `conic-gradient(
+      ${c1} 0deg,
+      ${c2} ${deg}deg,
+      #E4DCC5 ${deg}deg 360deg
+    )`;
+
+
+  document.getElementById(
+    "pctText"
+  ).textContent =
+    score + "%";
+
+
+  document.getElementById(
+    "pctText"
+  ).style.color =
+    c1;
+
 }
 
-function chip(text, type){
-  const s = document.createElement('span');
-  s.className = 'chip ' + type;
-  s.textContent = text;
-  return s;
+
+
+function chip(
+  text,
+  type
+){
+
+  const span =
+    document.createElement(
+      "span"
+    );
+
+
+  span.className =
+    "chip " +
+    type;
+
+
+  span.textContent =
+    text;
+
+
+  return span;
+
 }
+
+
 
 function li(text){
-  const el = document.createElement('li');
-  el.textContent = text;
-  return el;
+
+  const element =
+    document.createElement(
+      "li"
+    );
+
+
+  element.textContent =
+    text;
+
+
+  return element;
+
 }
 
+
+
 async function runAnalysis(){
-  const profile = document.getElementById('profileInput').value.trim();
-  const job = document.getElementById('jobInput').value.trim();
-  const errorBox = document.getElementById('errorBox');
-  const btn = document.getElementById('analyzeBtn');
-  const loadingLine = document.getElementById('loadingLine');
-  errorBox.style.display = 'none';
 
-  const hasProfileContent = profile || attachments.profile;
-  const hasJobContent = job || attachments.job;
+  const profile =
+    document
+      .getElementById(
+        "profileInput"
+      )
+      .value
+      .trim();
 
-  if(!hasProfileContent || !hasJobContent){
-    errorBox.textContent = 'Falta contenido: agrega el perfil de LinkedIn (texto o archivo) y la descripción de la vacante (texto o archivo).';
-    errorBox.style.display = 'block';
+
+  const job =
+    document
+      .getElementById(
+        "jobInput"
+      )
+      .value
+      .trim();
+
+
+  const errorBox =
+    document.getElementById(
+      "errorBox"
+    );
+
+
+  const button =
+    document.getElementById(
+      "analyzeBtn"
+    );
+
+
+  const loadingLine =
+    document.getElementById(
+      "loadingLine"
+    );
+
+
+  errorBox.style.display =
+    "none";
+
+
+  errorBox.textContent =
+    "";
+
+
+  const hasProfileContent =
+    profile ||
+    attachments.profile;
+
+
+  const hasJobContent =
+    job ||
+    attachments.job;
+
+
+  if(
+    !hasProfileContent ||
+    !hasJobContent
+  ){
+
+    errorBox.textContent =
+      "Falta contenido: agrega el perfil de LinkedIn y la descripción de la vacante, como texto o archivo.";
+
+
+    errorBox.style.display =
+      "block";
+
+
     return;
   }
 
-  btn.disabled = true;
-  btn.textContent = 'Analizando…';
-  loadingLine.style.display = 'block';
-  document.getElementById('results').style.display = 'none';
 
-  const systemPrompt = `Eres un reclutador senior de Recursos Humanos con más de 15 años de experiencia evaluando candidatos frente a vacantes. El perfil y/o la vacante pueden llegar como texto, PDF o imagen (captura de pantalla) — léelos directamente y extrae toda la información relevante antes de comparar. Analiza el perfil de LinkedIn frente a la vacante con criterio realista y honesto, ni condescendiente ni excesivamente duro.
+  button.disabled =
+    true;
 
-Responde ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después, sin bloques de markdown, con esta estructura exacta:
-{
-  "match_score": <numero entero 0-100>,
-  "veredicto": "<una frase corta y clara sobre el nivel de ajuste general>",
-  "coincidencias": ["<habilidad o requisito que sí cumple>", ...],
-  "brechas": ["<habilidad o requisito que falta o es débil>", ...],
-  "fortalezas": ["<fortaleza relevante del candidato para este puesto, redactada en una frase>", ...],
-  "recomendaciones": ["<sugerencia concreta y accionable para mejorar el perfil de LinkedIn y el match>", ...]
-}
 
-Incluye entre 3 y 7 elementos en cada lista según lo que realmente aplique. Sé específico y basado en el contenido real proporcionado, no genérico.`;
+  button.textContent =
+    "Analizando…";
+
+
+  loadingLine.style.display =
+    "block";
+
+
+  document.getElementById(
+    "results"
+  ).style.display =
+    "none";
+
 
   const contentParts = [
-    ...buildSideContent('PERFIL DE LINKEDIN (candidato). Puede venir como texto, PDF y/o imagen — usa todo lo disponible:', profile, attachments.profile),
-    ...buildSideContent('\nDESCRIPCIÓN DE LA VACANTE. Puede venir como texto, PDF y/o imagen — usa todo lo disponible:', job, attachments.job)
+
+    ...buildSideContent(
+
+      "PERFIL DE LINKEDIN (candidato). Puede venir como texto, PDF y/o imagen — usa todo lo disponible:",
+
+      profile,
+
+      attachments.profile
+
+    ),
+
+
+    ...buildSideContent(
+
+      "\nDESCRIPCIÓN DE LA VACANTE. Puede venir como texto, PDF y/o imagen — usa todo lo disponible:",
+
+      job,
+
+      attachments.job
+
+    )
+
   ];
 
+
   try{
-    const headers = { "Content-Type": "application/json" };
-    if(userApiKey){
-      headers["x-api-key"] = userApiKey;
-      headers["anthropic-version"] = "2023-06-01";
-      headers["anthropic-dangerous-direct-browser-access"] = "true";
+
+    const response =
+      await fetch(
+
+        "/api/analyze",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              content:
+                contentParts
+
+            })
+
+        }
+
+      );
+
+
+    const data =
+      await response
+        .json()
+        .catch(
+          () => null
+        );
+
+
+    if(
+      !response.ok
+    ){
+
+      const message =
+        data &&
+        data.error
+          ? data.error
+          : "No se pudo completar el análisis.";
+
+
+      throw new Error(
+        message
+      );
+
     }
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 1200,
-        system: systemPrompt,
-        messages: [{ role: "user", content: contentParts }]
-      })
-    });
 
-    if(!response.ok){
-      const errBody = await response.json().catch(() => null);
-      const msg = errBody && errBody.error && errBody.error.message ? errBody.error.message : '';
-      if(response.status === 401 || /api.?key/i.test(msg)){
-        throw new Error('APIKEY');
-      }
-      throw new Error(msg || 'La solicitud al servicio de análisis falló.');
+    if(
+      !data ||
+      !data.result
+    ){
+
+      throw new Error(
+        "El servicio no devolvió un resultado válido."
+      );
+
     }
 
-    const data = await response.json();
-    const text = data.content.map(b => b.text || "").filter(Boolean).join("\n");
-    const clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
-    const result = JSON.parse(clean);
 
-    renderResults(result);
-  }catch(err){
-    console.error(err);
-    if(err.message === 'APIKEY'){
-      errorBox.textContent = 'Clave de API faltante o inválida. Ingrésala arriba (obtenla en console.anthropic.com) y vuelve a intentar.';
-    } else {
-      errorBox.textContent = 'No se pudo completar el análisis. Intenta nuevamente en unos segundos.';
-    }
-    errorBox.style.display = 'block';
+    renderResults(
+      data.result
+    );
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+
+    errorBox.textContent =
+      error &&
+      error.message
+        ? error.message
+        : "No se pudo completar el análisis. Intenta nuevamente en unos segundos.";
+
+
+    errorBox.style.display =
+      "block";
+
+
   }finally{
-    btn.disabled = false;
-    btn.textContent = 'Analizar compatibilidad';
-    loadingLine.style.display = 'none';
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "Analizar compatibilidad";
+
+
+    loadingLine.style.display =
+      "none";
+
   }
+
 }
+
+
 
 function renderResults(result){
-  const score = Math.max(0, Math.min(100, Math.round(result.match_score || 0)));
-  renderDial(score);
 
-  const {label} = colorForScore(score);
-  document.getElementById('verdictTitle').textContent = label;
-  document.getElementById('verdictText').textContent = result.veredicto || '';
+  const score =
+    Math.max(
 
-  const matchChips = document.getElementById('matchChips');
-  matchChips.innerHTML = '';
-  (result.coincidencias || []).forEach(t => matchChips.appendChild(chip(t, 'match')));
-  if((result.coincidencias || []).length === 0){
-    matchChips.appendChild(chip('Sin coincidencias claras detectadas', 'gap'));
+      0,
+
+      Math.min(
+
+        100,
+
+        Math.round(
+          result.match_score ||
+          0
+        )
+
+      )
+
+    );
+
+
+  renderDial(
+    score
+  );
+
+
+  const {
+    label
+  } =
+    colorForScore(
+      score
+    );
+
+
+  document.getElementById(
+    "verdictTitle"
+  ).textContent =
+    label;
+
+
+  document.getElementById(
+    "verdictText"
+  ).textContent =
+    result.veredicto ||
+    "";
+
+
+  const matchChips =
+    document.getElementById(
+      "matchChips"
+    );
+
+
+  matchChips.innerHTML =
+    "";
+
+
+  (
+    result.coincidencias ||
+    []
+  )
+  .forEach(
+    text =>
+      matchChips.appendChild(
+        chip(
+          text,
+          "match"
+        )
+      )
+  );
+
+
+  if(
+    (
+      result.coincidencias ||
+      []
+    ).length === 0
+  ){
+
+    matchChips.appendChild(
+
+      chip(
+        "Sin coincidencias claras detectadas",
+        "gap"
+      )
+
+    );
+
   }
 
-  const gapChips = document.getElementById('gapChips');
-  gapChips.innerHTML = '';
-  (result.brechas || []).forEach(t => gapChips.appendChild(chip(t, 'gap')));
-  if((result.brechas || []).length === 0){
-    gapChips.appendChild(chip('No se detectaron brechas relevantes', 'match'));
+
+  const gapChips =
+    document.getElementById(
+      "gapChips"
+    );
+
+
+  gapChips.innerHTML =
+    "";
+
+
+  (
+    result.brechas ||
+    []
+  )
+  .forEach(
+    text =>
+      gapChips.appendChild(
+        chip(
+          text,
+          "gap"
+        )
+      )
+  );
+
+
+  if(
+    (
+      result.brechas ||
+      []
+    ).length === 0
+  ){
+
+    gapChips.appendChild(
+
+      chip(
+        "No se detectaron brechas relevantes",
+        "match"
+      )
+
+    );
+
   }
 
-  const strengthsList = document.getElementById('strengthsList');
-  strengthsList.innerHTML = '';
-  (result.fortalezas || []).forEach(t => strengthsList.appendChild(li(t)));
 
-  const recsList = document.getElementById('recsList');
-  recsList.innerHTML = '';
-  (result.recomendaciones || []).forEach(t => recsList.appendChild(li(t)));
+  const strengthsList =
+    document.getElementById(
+      "strengthsList"
+    );
 
-  document.getElementById('results').style.display = 'block';
-  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'start'});
+
+  strengthsList.innerHTML =
+    "";
+
+
+  (
+    result.fortalezas ||
+    []
+  )
+  .forEach(
+    text =>
+      strengthsList.appendChild(
+        li(text)
+      )
+  );
+
+
+  const recsList =
+    document.getElementById(
+      "recsList"
+    );
+
+
+  recsList.innerHTML =
+    "";
+
+
+  (
+    result.recomendaciones ||
+    []
+  )
+  .forEach(
+    text =>
+      recsList.appendChild(
+        li(text)
+      )
+  );
+
+
+  document.getElementById(
+    "results"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "results"
+  ).scrollIntoView({
+
+    behavior:"smooth",
+
+    block:"start"
+
+  });
+
 }
+
 </script>
+
 </body>
 </html>
